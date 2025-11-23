@@ -8,7 +8,7 @@ from __future__ import annotations
 import base64
 from typing import Dict, List
 
-from data_models import PageResult, TextAndImages, TextElement
+from .data_models import PageResult, TextAndImages, TextElement
 
 
 def assemble_text_lines(texts: List[TextElement]) -> List[str]:

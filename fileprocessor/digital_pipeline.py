@@ -10,10 +10,10 @@ from pathlib import Path
 from typing import List
 
 import fitz
-from data_models import BBox, ImageElement, PageResult, TextElement
+from .data_models import BBox, ImageElement, PageResult, TextElement
 from docx import Document
 from PIL import Image
-from scan_pipeline import render_page_to_rgb
+from .scan_pipeline import render_page_to_rgb
 
 # ========================== Digital PDF helpers ==========================
 

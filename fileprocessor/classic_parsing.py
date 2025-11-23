@@ -8,13 +8,13 @@ from pathlib import Path
 from typing import Dict, List, Literal
 
 import fitz  # PyMuPDF
-from cleaning import clean_marked_text
-from data_models import PageResult
-from digital_pipeline import process_digital
+from .cleaning import clean_marked_text
+from .data_models import PageResult
+from .digital_pipeline import process_digital
 
 # NEW: imports for the in-memory result
-from io_utils import TextAndImages, build_text_and_images
-from scan_pipeline import process_pdf as process_scanned_pdf
+from .io_utils import TextAndImages, build_text_and_images
+from .scan_pipeline import process_pdf as process_scanned_pdf
 
 FileKind = Literal["scan_pdf", "digital_pdf", "word"]
 

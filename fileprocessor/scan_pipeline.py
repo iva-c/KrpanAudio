@@ -13,7 +13,7 @@ import cv2
 import fitz  # PyMuPDF
 import numpy as np
 import pytesseract
-from data_models import BBox, ImageElement, PageResult, TextElement
+from .data_models import BBox, ImageElement, PageResult, TextElement
 from PIL import Image
 from pytesseract import Output
 
