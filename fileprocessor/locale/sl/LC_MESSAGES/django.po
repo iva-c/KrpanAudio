@@ -1,0 +1,109 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-22 16:35+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
+"n%100==4 ? 2 : 3);\n"
+
+
+#: fileprocessor/templates/fileprocessor/form.html:XX
+msgid "Process a File"
+msgstr "Obdelaj datoteko"
+
+#: fileprocessor/templates/fileprocessor/form.html:XX
+msgid "Fill out the form below to convert your document for accessible reading."
+msgstr "Izpolnite spodnji obrazec za pretvorbo dokumenta v dostopno obliko za slepe."
+
+#: fileprocessor/forms.py:5
+msgid "Input File (PDF or DOCX)"
+msgstr "Vhodna datoteka (PDF ali DOCX)"
+
+#: fileprocessor/forms.py:7
+msgid "Integrated"
+msgstr "Vključeno"
+
+#: fileprocessor/forms.py:7
+msgid "Separate"
+msgstr "Ločeno"
+
+#: fileprocessor/forms.py:8
+msgid "Image Description Mode"
+msgstr "Način opisa slik"
+
+#: fileprocessor/forms.py:10
+msgid "Audio"
+msgstr "Zvok"
+
+#: fileprocessor/forms.py:10
+msgid "Text"
+msgstr "Besedilo"
+
+#: fileprocessor/forms.py:11
+msgid "Output Type"
+msgstr "Vrsta izhoda"
+
+#: fileprocessor/forms.py:13
+msgid "API Key"
+msgstr "API ključ"
+
+#: fileprocessor/forms.py:14
+msgid "Enter your OpenAI API key."
+msgstr "Vnesite svoj OpenAI API ključ."
+
+#: fileprocessor/forms.py:16
+msgid "Output File Name"
+msgstr "Ime izhodne datoteke"
+
+#: fileprocessor/forms.py:18
+msgid "The output file will be saved in the same folder as the uploaded input file."
+msgstr "Izhodna datoteka bo shranjena v isti mapi kot naložena vhodna datoteka."
+
+#: fileprocessor/forms.py:27
+msgid "Input file is required."
+msgstr "Vhodna datoteka je obvezna."
+
+#: fileprocessor/forms.py:29
+msgid "No API key provided. Only conversion to text file and PNGs of photos is available."
+msgstr "API ključ ni vnesen. Na voljo je le pretvorba v besedilno datoteko in PNG slike fotografij."
+
+#: fileprocessor/forms.py:XX
+msgid "PDF Processing Method"
+msgstr "Način obdelave PDF"
+
+#: fileprocessor/forms.py:XX
+msgid "LLM (better for scanned books, more expensive)"
+msgstr "LLM (boljše za skenirane knjige, dražje)"
+
+#: fileprocessor/forms.py:XX
+msgid "Classic (cheaper, for regular PDFs)"
+msgstr "Klasično (ceneje, za običajne PDF-je)"
+
+#: fileprocessor/forms.py:XX
+msgid "Choose LLM for scanned PDFs (books), Classic for regular PDFs. Only available if PDF and API key are provided."
+msgstr "Izberite LLM za skenirane PDF-je (knjige), Klasično za običajne PDF-je. Na voljo le, če je izbran PDF in vnesen API ključ."
+
+#: fileprocessor/forms.py:XX
+msgid "Please select a PDF processing method."
+msgstr "Prosimo, izberite način obdelave PDF."
+
+#: fileprocessor/forms.py:XX
+msgid "No API key provided. Only conversion to photos and text is available."
+msgstr "API ključ ni vnesen. Na voljo je le pretvorba v slike in besedilo."
+
+#: fileprocessor/templates/fileprocessor/form.html:126
+msgid "Process"
+msgstr "Pretvori"

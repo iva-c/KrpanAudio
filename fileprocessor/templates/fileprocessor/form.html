@@ -1,0 +1,133 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="{% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+     <title>{% trans "File Processor" %}</title>
+    <style>
+        body {
+            font-size: 1.2em;
+            background: #fff;
+            color: #222;
+        }
+        main {
+            max-width: 500px;
+            margin: 2em auto;
+            padding: 2em;
+            border-radius: 8px;
+            background: #f9f9f9;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        button {
+            display: block;
+            margin: 1em auto;
+            padding: 0.5em 2em;
+            font-size: 1em;
+            background: #0057b8;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+        button:focus {
+            outline: 2px solid #222;
+        }
+        .skip-link {
+            position: absolute;
+            left: -999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        .skip-link:focus {
+            left: 10px;
+            top: 10px;
+            width: auto;
+            height: auto;
+            background: #0057b8;
+            color: #fff;
+            padding: 0.5em;
+            z-index: 1000;
+        }
+    </style>
+    <script>
+        function togglePdfMethod() {
+            var inputFile = document.getElementById('id_input_file');
+            var apiKey = document.getElementById('id_api_key');
+            var pdfMethodDiv = document.getElementById('pdf-method-div');
+            if (inputFile && apiKey && pdfMethodDiv) {
+                var fileName = inputFile.value.toLowerCase();
+                var hasApiKey = apiKey.value.trim().length > 0;
+                if (fileName.endsWith('.pdf') && hasApiKey) {
+                    pdfMethodDiv.style.display = 'block';
+                } else {
+                    pdfMethodDiv.style.display = 'none';
+                }
+            }
+        }
+        window.onload = function() {
+            var inputFile = document.getElementById('id_input_file');
+            var apiKey = document.getElementById('id_api_key');
+            if (inputFile) inputFile.onchange = togglePdfMethod;
+            if (apiKey) apiKey.oninput = togglePdfMethod;
+            togglePdfMethod();
+        };
+    </script>
+</head>
+<body>
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <label for="language">{% trans "Language" %}:</label>
+        <select name="language" id="language">
+            <option value="en">{% trans "English" %}</option>
+            <option value="sl">{% trans "Slovenščina" %}</option>
+        </select>
+        <input type="submit" value="{% trans 'Change' %}">
+    </form>
+    <a href="#main-content" class="skip-link">{% trans "Skip to main content" %}</a>
+    <main id="main-content" role="main" aria-label="{% trans 'File Processor Form' %}">
+        <h2>{% trans "Process a File" %}</h2>
+        <form method="post" enctype="multipart/form-data" aria-describedby="form-desc">
+            {% csrf_token %}
+            <div id="form-desc" style="margin-bottom:1em;">
+                {% trans "Fill out the form below to convert your document for accessible reading." %}
+            </div>
+            {% for field in form %}
+                {% if field.name == 'pdf_method' %}
+                    <div id="pdf-method-div" style="margin-bottom:1em; display:none;">
+                        <label for="{{ field.id_for_label }}">{% trans field.label %}</label><br>
+                        {{ field }}
+                        {% if field.help_text %}
+                            <small>{% trans field.help_text %}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div style="color:red;" aria-live="assertive">{% trans error %}</div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div style="margin-bottom:1em;">
+                        <label for="{{ field.id_for_label }}">{% trans field.label %}</label><br>
+                        {{ field }}
+                        {% if field.help_text %}
+                            <small>{% trans field.help_text %}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div style="color:red;" aria-live="assertive">{% trans error %}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <button type="submit">{% trans "Process" %}</button>
+        </form>
+        {% if result %}
+            <p aria-live="polite">{{ result }}</p>
+        {% endif %}
+    </main>
+</body>
+</html>
