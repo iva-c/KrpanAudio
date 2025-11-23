@@ -1,8 +1,7 @@
-"""Lightweight data models used across the pipelines.
-
-Defines small dataclasses for recognized text, images, and per-page
-results. Types are intentionally simple and serializable-friendly to
-make integration with web backends and tests straightforward.
+"""
+Helper data models for classic_parsing.py.
+Define small dataclasses for recognized text, images, and per-page
+results.
 """
 
 from __future__ import annotations

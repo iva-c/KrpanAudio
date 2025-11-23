@@ -1,10 +1,5 @@
-"""Routing helpers for document processing.
-
-This module exposes small, well-documented functions used by the
-application to detect input file type and to dispatch files to the
-appropriate processing pipeline. It is intended to be imported by
-other code (web backends, CLI, tests) and therefore has no side effects
-on import.
+"""
+Classic document parsing: PDF (scanned + digital) and Word files.
 """
 
 from __future__ import annotations
@@ -13,13 +8,12 @@ from pathlib import Path
 from typing import Dict, List, Literal
 
 import fitz  # PyMuPDF
-
 from cleaning import clean_marked_text
+from data_models import PageResult
 from digital_pipeline import process_digital
 
 # NEW: imports for the in-memory result
 from io_utils import TextAndImages, build_text_and_images
-from data_models import PageResult
 from scan_pipeline import process_pdf as process_scanned_pdf
 
 FileKind = Literal["scan_pdf", "digital_pdf", "word"]

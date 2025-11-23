@@ -1,9 +1,6 @@
-"""Processing pipeline for digital documents (PDF and Word).
-
-This module extracts text and inline images from digital PDF files and
-basic Word documents. The functions return `PageResult` objects that are
-compatible with the scanned-page pipeline, allowing downstream code to
-assemble text and images in a uniform way.
+"""
+Helper functions for classic_parsing.py.
+Processing pipeline: extract text and images from digital documents (PDF and Word).
 """
 
 from __future__ import annotations
@@ -12,12 +9,11 @@ import io
 from pathlib import Path
 from typing import List
 
-import fitz  # PyMuPDF
-from docx import Document  # pip install python-docx
-from PIL import Image
-
+import fitz
 from data_models import BBox, ImageElement, PageResult, TextElement
-from scan_pipeline import render_page_to_rgb  # reuse same rendering as scans
+from docx import Document
+from PIL import Image
+from scan_pipeline import render_page_to_rgb
 
 # ========================== Digital PDF helpers ==========================
 
@@ -39,7 +35,7 @@ def _extract_text_elements_from_page(
     sx = width_px / rect.width if rect.width > 0 else 1.0
     sy = height_px / rect.height if rect.height > 0 else 1.0
 
-    words = page.get_text("words")  # list of tuples
+    words = page.get_text("words")
     texts: List[TextElement] = []
 
     for x0_pt, y0_pt, x1_pt, y1_pt, text, block_no, line_no, word_no in words:

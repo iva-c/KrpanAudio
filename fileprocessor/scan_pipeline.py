@@ -1,9 +1,6 @@
-"""Scanning pipeline: render pages, normalize images and run OCR.
-
-This module contains routines to render PDF pages to images, apply
-background normalization and despeckling, and to run Tesseract OCR to
-produce `TextElement` objects. It also contains heuristics to decide
-when a page should be returned as an image rather than text.
+"""
+Helper functions for classic_parsing.py.
+Scanning pipeline: run OCR to generate images and text from scanned pages.
 """
 
 from __future__ import annotations
@@ -16,14 +13,9 @@ import cv2
 import fitz  # PyMuPDF
 import numpy as np
 import pytesseract
+from data_models import BBox, ImageElement, PageResult, TextElement
 from PIL import Image
 from pytesseract import Output
-
-from data_models import BBox, ImageElement, PageResult, TextElement
-
-# If needed, set your Tesseract path here:
-# pytesseract.pytesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-
 
 # ======================================================================
 # Rendering
@@ -188,7 +180,7 @@ LIGHT_PHOTO_MEAN_MAX = 245.0
 LIGHT_PHOTO_STD_MIN = 8.0
 LIGHT_PHOTO_EDGE_MIN = 0.015
 LIGHT_PHOTO_EDGE_MAX = 0.12
-LIGHT_PHOTO_MIDTONE_MIN = 0.35  # try 0.33 if needed
+LIGHT_PHOTO_MIDTONE_MIN = 0.35
 LIGHT_PHOTO_DARK_MIN = 0.006
 LIGHT_PHOTO_DARK_MAX = 0.18
 

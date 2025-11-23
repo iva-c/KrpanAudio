@@ -1,22 +1,6 @@
-# file: cleaning.py
 """
+Helper functions for classic_parsing.py.
 OCR/PDF → TTS cleaner with robust image relocation.
-
-Key ideas
----------
-- <image_n> placeholders are NEVER removed.
-- Images move FORWARD to the NEXT sentence end via buffering,
-  except when they are in a "safe" block position:
-    * before any real text in the document (front-matter image block), or
-    * immediately after a completed sentence.
-- Sentence ends = '.', '!', '?', '…' (possibly repeated) with trailing spaces/closers.
-- Punctuation junk is cleaned without destroying short words near quotes.
-- Lines inside a page are flattened into a single paragraph (newlines → spaces).
-- Repeated headers/footers, page numbers, OCR garbage pages are dropped,
-  but pages containing images are always preserved.
-- Optional: drop standalone single-letter lines (default: only 'a').
-- Final pass enforces BLANK LINES around every <image_n> and verifies that
-  all image tags are preserved in count and order.
 """
 
 from __future__ import annotations
@@ -37,6 +21,7 @@ DROP_SINGLE_LETTER_LINES: set[str] = {"a"}
 # ============================================================================
 # 1. Page-level statistics & classification
 # ============================================================================
+
 
 def page_stats(text: str) -> Dict[str, float]:
     """
@@ -181,6 +166,7 @@ def is_image_like_page(
 # 2. Repeated header / footer detection
 # ============================================================================
 
+
 def detect_repeated_lines(
     pages: Iterable[str],
     min_page_fraction: float = 0.4,
@@ -305,7 +291,10 @@ def is_garbage_page(
     """
     if stats["num_chars"] < min_chars and stats["ratio_letters"] < 0.2:
         return True
-    if stats["ratio_weird"] > max_weird_ratio and stats["ratio_letters"] < max_letters_ratio:
+    if (
+        stats["ratio_weird"] > max_weird_ratio
+        and stats["ratio_letters"] < max_letters_ratio
+    ):
         return True
     if stats["num_words"] <= 30 and _meaningful_word_fraction(text) < 0.5:
         return True
@@ -331,7 +320,6 @@ def _ensure_terminal_punctuation(text: str) -> str:
     if not s:
         return s
 
-    # No word-like characters -> don't invent punctuation
     if not re.search(r"[A-Za-z0-9À-ž]", s):
         return s
 
@@ -436,6 +424,7 @@ def _force_blank_lines_around_images(text: str) -> str:
 # 4. Global image relocation
 # ============================================================================
 
+
 def _relocate_images_forward_globally(text: str) -> str:
     """
     Globally relocate <image_n> tags to avoid splitting sentences, with rules:
@@ -462,9 +451,9 @@ def _relocate_images_forward_globally(text: str) -> str:
     i = 0
     out_parts: List[str] = []
 
-    tail = ""                 # last up to 2 chars of output (spacing convenience)
-    last_sig: str | None = None   # last non-space, non-closer, non-image char
-    seen_real_text = False        # have we seen any word-like characters?
+    tail = ""  # last up to 2 chars of output (spacing convenience)
+    last_sig: str | None = None  # last non-space, non-closer, non-image char
+    seen_real_text = False  # have we seen any word-like characters?
 
     def append(s: str) -> None:
         """
@@ -570,6 +559,7 @@ def _relocate_images_forward_globally(text: str) -> str:
 # 5. Image presence / order safety checks
 # ============================================================================
 
+
 def _collect_all_image_tags_in_order(raw_pages: List[str]) -> List[str]:
     """
     Extract all <image_n> tags from raw pages, preserving global order.
@@ -641,6 +631,7 @@ def _ensure_all_images_preserved_in_order(original_tags: List[str], text: str) -
 # ============================================================================
 # 6. Single-page cleaning (no relocation)
 # ============================================================================
+
 
 def clean_page_text(
     raw: str,
@@ -716,6 +707,7 @@ def clean_page_text(
 # 7. Whole-document cleaning (with global relocation)
 # ============================================================================
 
+
 def clean_document(pages: List[str], detect_headers: bool = True) -> str:
     """
     Clean an entire document:
@@ -783,6 +775,7 @@ def clean_document(pages: List[str], detect_headers: bool = True) -> str:
 # ============================================================================
 # 8. Convenience helpers (for marked text / analysis / nonsense pages)
 # ============================================================================
+
 
 def analyze_pages(pages: List[str]) -> List[Dict[str, float]]:
     """

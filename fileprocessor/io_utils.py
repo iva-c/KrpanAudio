@@ -1,10 +1,6 @@
-"""I/O helpers: assemble textual output and in-memory images.
-
-This module provides utilities that build plain-text representations
-from pipeline `PageResult` objects and collect images in a
-base64-encoded dictionary suitable for in-memory use (TTS, frontend).
-These helpers are deliberately small and pure to avoid circular
-imports with the processing pipelines.
+"""
+Helper functions for classic_parsing.py.
+Assemble textual output and in-memory images.
 """
 
 from __future__ import annotations
