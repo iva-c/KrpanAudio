@@ -24,9 +24,12 @@ Priprava in optimizacija promptov za LLM, izbor globokih modelov, raziskovanje l
 > KrpanAudioApp was developed during the AdaHack Code for Change 2025 hackathon for the challenge set by Abelium:  
 > **AI-powered learning assistant for the blind and visually impaired.**
 >
-> The app converts PDF or DOCX files into accessible formats (TXT or MP3), which include image descriptions (integrated into sorrounding text or a description inserted instead of image).  
+> The app converts PDF or DOCX files into accessible formats (TXT or MP3), including image descriptions—either integrated into the surrounding text or inserted as standalone descriptions where images appear.  
 > Advanced features (LLM-based parsing, contextual image descriptions, audio conversion) require an OpenAI API key.  
 > The entire project is built in Django, and the HTML form is optimized for screen readers.
+>
+> **Why is this socially impactful?**  
+> Images in books and educational materials are often inaccessible to blind and visually impaired users, causing them to miss crucial context and information. By automatically generating and integrating image descriptions, KrpanAudioApp helps bridge this gap, enabling more inclusive access to knowledge, education, and culture for everyone.
 
 
 ## Opis rešitve
