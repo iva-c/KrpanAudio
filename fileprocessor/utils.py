@@ -5,6 +5,8 @@ import json
 
 from typing import Tuple, Dict, Any
 from openai import OpenAI
+from pathlib import Path
+import fitz  # PyMuPDF
 
 from .classic_parsing import classic_doc_parsing
 
@@ -54,11 +56,13 @@ def process_file(
         return f"Error during document parsing: {str(e)}"
 
     try:
+        # add descriptions to images
         descriptions = describe_images_with_llm(images, text, api_key)
     except Exception as e:
         return f"Error during image description: {str(e)}"
 
     try:
+        # integrate image descriptions into text
         if mode == 'separate':
             integrated_text = text
             for img_tag, description in descriptions.items():
@@ -69,6 +73,7 @@ def process_file(
         return f"Error during description integration: {str(e)}"
 
     try:
+        # output result as text or audio
         if output == "text":
             with open(output_file_path, 'w', encoding='utf-8') as out_file:
                 out_file.write(integrated_text)
@@ -80,6 +85,71 @@ def process_file(
         return f"Error during output file writing: {str(e)}"
 
     return f"Processed {input_file.name} with mode {mode}, outputting to {output_file_path}"
+
+def is_digital_pdf(pdf_path: Path, text_threshold: int = 5) -> bool:
+    """
+    Decide whether a PDF is 'digital' (has embedded text) or a scanned image.
+
+    Heuristic:
+        
+
+    open PDF
+        inspect ONLY the first page
+            extract text with page.get_text("text")
+                if len(text) > text_threshold => digital PDF
+
+
+    If anything is weird/empty, we fall back to treating it as scanned.
+    """
+    doc = fitz.open(pdf_path)
+
+    try:
+        if len(doc) == 0:
+            # Empty / corrupted: safest to treat as scan
+            return False
+
+        first_page = doc[0]
+        text = first_page.get_text("text") or ""
+        return len(text) > text_threshold
+    finally:
+        doc.close()
+
+
+def is_digital_or_word(path: str | Path, text_threshold: int = 5) -> bool:
+    """
+    Return True if the file is a digital PDF or a Word document; False if it's a scanned PDF.
+
+    Behavior:
+      
+
+    .pdf  -> True iff PDF has embedded text (per is_digital_pdf); False if scanned/empty.
+        .docx/.doc -> Always True (treated as 'word').
+            others -> ValueError to surface misuse early.
+
+
+    Parameters
+    ----------
+    path : str | Path
+        File path.
+    text_threshold : int
+        Minimum number of text characters on the first page to consider the PDF digital.
+
+    Raises
+    ------
+    ValueError: For unsupported suffixes.
+    """
+    p = Path(path)
+    suffix = p.suffix.lower()
+
+    if suffix == ".pdf":
+        return is_digital_pdf(p, text_threshold=text_threshold)
+
+    if suffix in {".docx", ".doc"}:
+        return True
+
+    raise ValueError(
+        f"Unsupported file type: {suffix!r} (only .pdf, .docx, .doc supported)"
+    )
 
 def llm_doc_parsing(doc_path: str, api_key: str) -> Tuple[str, Dict[str, str]]:
     """
