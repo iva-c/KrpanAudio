@@ -54,6 +54,7 @@ dependencies:
   - pygments=2.19.2=pyhd8ed1ab_0
   - python=3.12.12=hd17a9e1_1
   - python-dateutil=2.9.0.post0=pyhe01879c_2
+  - python-docx=1.2.0=pyhd8ed1ab_0
   - pyzmq=27.1.0=py312hcf8288c_1
   - readline=8.3=hc2a1206_0
   - setuptools=80.9.0=py312h06a4308_0
