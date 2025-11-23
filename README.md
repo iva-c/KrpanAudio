@@ -1,20 +1,7 @@
-# KrpanAudio
+# KrpanAudio 🎧
 
 Aplikacija KrpanAudio je bila razvita v okviru hackathona **AdaHack Code for Change 2025** za izziv podjetja **Abelium**:  
 🎯 **AI opolnomočen učni pomočnik za slepe in slabovidne**
-
----
-
-## Avtorice
-
-**Iva Černoša**:  
-Idejna zasnova, glavna arhitektura Django web appa (backend in frontend), oblikovanje dostopnega HTML obrazca ter koordinacija ekipe.
-
-**Zala Erčulj**:  
-Koda za klasični parsing vhodnih datotek v slike in besedilo (uporaba OCR), logika za izluščanje besedila in slik iz PDF/DOCX brez uporabe LLM, robustnost obdelave dokumentov.
-
-**Nives Sovič**:  
-Priprava in optimizacija promptov za LLM, izbor globokih modelov, raziskovanje literature s področja dostopnosti, priprava končnega audia.
 
 ---
 
@@ -31,8 +18,31 @@ Priprava in optimizacija promptov za LLM, izbor globokih modelov, raziskovanje l
 > **Why is this socially impactful?**  
 > Images in books and educational materials are often inaccessible to blind and visually impaired users, causing them to miss crucial context and information. By automatically generating and integrating image descriptions, KrpanAudioApp helps bridge this gap, enabling more inclusive access to knowledge, education, and culture for everyone.
 
+---
 
-## Opis rešitve
+## Avtorice 👩‍💻
+
+**Iva Černoša**:  
+Idejna zasnova, glavna arhitektura Django web appa (backend in frontend), oblikovanje dostopnega HTML obrazca ter koordinacija ekipe.
+
+**Zala Erčulj**:  
+Koda za klasični parsing vhodnih datotek v slike in besedilo (uporaba OCR), logika za izluščanje besedila in slik iz PDF/DOCX brez uporabe LLM, robustnost obdelave dokumentov.
+
+**Nives Sovič**:  
+Priprava in optimizacija promptov za LLM, izbor globokih modelov, raziskovanje literature s področja dostopnosti, priprava končnega audia.
+
+---
+
+
+## Opis rešitve 📝
+
+
+> ### Kaj zmore KrpanAudio? 🌟
+> - 📄 Pretvorba PDF/DOCX v TXT  
+> - 🔊 Pretvorba besedila v MP3  
+> - 🖼️ Samodejni opisi slik  
+> - ♿ Prilagojeno za bralnike zaslona  
+
 
 Aplikacija je namenjena pretvorbi vhodnih PDF ali DOCX datotek v dostopne oblike za slepe in slabovidne:
 
@@ -55,7 +65,7 @@ HTML forma je prilagojena za bralnike za slepe (screen reader accessible).
 
 ---
 
-## Workflow
+## Workflow ⚙️
 
 1. Uporabnik naloži PDF ali DOCX datoteko preko spletnega obrazca.
 2. Izbere način obdelave slik (integrirano/ločeno) in izhodni format (besedilo/avdio).
@@ -69,7 +79,7 @@ HTML forma je prilagojena za bralnike za slepe (screen reader accessible).
 
 ---
 
-## Inputi
+## Inputi 📂
 
 - **Vhodna datoteka:** PDF ali DOCX
 - **Način opisa slik:** Integrirano / Ločeno
@@ -79,7 +89,7 @@ HTML forma je prilagojena za bralnike za slepe (screen reader accessible).
 
 ---
 
-## Dostopnost
+## Dostopnost ♿
 
 HTML obrazec je prilagojen za bralnike za slepe in slabovidne.  
 <p align="center">
@@ -89,7 +99,7 @@ HTML obrazec je prilagojen za bralnike za slepe in slabovidne.
 
 ---
 
-## Navodila za zagon
+## Navodila za zagon 🚀
 
 ### 1. Klasični Python virtualenv
 
